@@ -53,6 +53,7 @@ module.exports = function(sequelize, DataTypes) {
       field: 'Paid'
     }
   }, {
-    tableName: 'payment'
+    tableName: 'payment',
+    timestamps: false
   });
 };

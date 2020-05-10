@@ -40,7 +40,8 @@ module.exports = function(sequelize, DataTypes) {
     userType: {
       type: DataTypes.STRING(4),
       allowNull: true,
-      field: 'UserType'
+      field: 'UserType',
+      
     },
     billingId: {
       type: DataTypes.INTEGER(11),
@@ -49,9 +50,10 @@ module.exports = function(sequelize, DataTypes) {
         model: 'billingaddress',
         key: 'BillingId'
       },
-      field: 'BillingId'
+      field: 'BillingId',
     }
   }, {
-    tableName: 'customer'
+    tableName: 'customer',
+    timestamps: false
   });
 };

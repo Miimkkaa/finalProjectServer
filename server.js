@@ -10,9 +10,9 @@ app.use(cors());
 };
 
 app.use(cors(corsOptions));*/
-const db = require(".app/models");
+const db = require("./app/models");
 
-db.sequelize.sync();
+//db.sequelize.sync();
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());

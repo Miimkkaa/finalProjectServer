@@ -29,6 +29,7 @@ module.exports = function(sequelize, DataTypes) {
       field: 'TotalPrice'
     }
   }, {
-    tableName: 'cart'
+    tableName: 'cart',
+    timestamps: false
   });
 };

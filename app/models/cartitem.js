@@ -29,6 +29,7 @@ module.exports = function(sequelize, DataTypes) {
       field: 'QPrice'
     }
   }, {
-    tableName: 'cartitem'
+    tableName: 'cartitem',
+    timestamps: false
   });
 };

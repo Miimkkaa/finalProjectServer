@@ -35,6 +35,7 @@ module.exports = function(sequelize, DataTypes) {
       field: 'InStock'
     }
   }, {
-    tableName: 'item'
+    tableName: 'item',
+    timestamps: false
   });
 };

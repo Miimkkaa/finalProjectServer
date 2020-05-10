@@ -35,6 +35,7 @@ module.exports = function(sequelize, DataTypes) {
       field: 'Country'
     }
   }, {
-    tableName: 'billingaddress'
+    tableName: 'billingaddress',
+    timestamps: false
   });
 };
