@@ -41,7 +41,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(4),
       allowNull: true,
       field: 'UserType',
-      
+     // defaulValue: '1'
     },
     billingId: {
       type: DataTypes.INTEGER(11),
