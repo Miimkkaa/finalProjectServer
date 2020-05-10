@@ -21,6 +21,10 @@ module.exports = function(sequelize, DataTypes) {
     cartItem: {
       type: DataTypes.INTEGER(11),
       allowNull: true,
+      references: {
+        model: 'cartitem',
+        key: 'CartItemId'
+      },
       field: 'CartItem'
     },
     totalPrice: {

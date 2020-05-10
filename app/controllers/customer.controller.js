@@ -2,10 +2,10 @@ const db = require("../models");
 const Customer = db.Customer;
 const Op = db.Sequelize.Op
 
-// Get all people from the database
+// Get all customers from the database
 exports.findAll = (req, res) => {
 
-  Customer.findAll({ })
+  Customer.findAll()
     .then(data => {
       res.send(data);
     })
@@ -17,28 +17,28 @@ exports.findAll = (req, res) => {
     });
 }; 
 
-// Create and Save a new person
+// Create and Save a new customer
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.FirstName) {
+  if (!req.body.firstName) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
     return;
   }
 
-  // Create a new user
+  // Create a new customer
   const customer = {
-    FirstName: req.body.FirstName,
-    LastName: req.body.LastName,
-    Username: req.body.Username,
-    Pass: req.body.Pass,
-    Email: req.body.Email,
-    BirthDate: req.body.BirthDate,
-    UserType: '1'
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    username: req.body.username,
+    pass: req.body.pass,
+    email: req.body.email,
+    birthDate: req.body.birthDate,
+    userType: '1'
   };
 
-  // Save person in the database
+  // Save customer in the database
   Customer.create(customer)
     .then(data => {
       res.send(data);
@@ -51,7 +51,7 @@ exports.create = (req, res) => {
     });
 };
 
-// Get all by id
+// Get customer by id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
@@ -66,12 +66,12 @@ exports.findOne = (req, res) => {
     });
 };
 
-// Update user information
+// Update customer information
 exports.update = (req, res) => {
   const id = req.params.id;
 
   Customer.update(req.body, {
-    where: { id: id }
+    where: { customerId: id }
   })
     .then(num => {
       if (num == 1) {
@@ -91,7 +91,7 @@ exports.update = (req, res) => {
     });
 };
 
-// Delete all users
+// Delete all customers
 exports.deleteAll = (req, res) => {
   Customer.destroy({
       where: {},
@@ -108,12 +108,12 @@ exports.deleteAll = (req, res) => {
       });
 };
 
-// Delete user by id
+// Delete customer by id
 exports.delete = (req, res) => {
   const id = req.params.id;
 
   Customer.destroy({
-    where: { id: id }
+    where: { customerId: id }
   })
     .then(num => {
       if (num == 1) {
@@ -143,10 +143,7 @@ exports.login = (req, res) => {
       message: "Sorry, something went wrong."
     });
   } else {
-  /*  res.status(200).send({
-      message: "okii."
-    }); */
-    Customer.findOne({where: { username: username, password: Pass }})
+    Customer.findOne({where: { username: username, pass: password }})
     .then(data => {
       res.send(data);
     })
