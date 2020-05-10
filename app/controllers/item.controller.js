@@ -1,11 +1,11 @@
 const db = require("../models");
-const Item = db.item;
+const Item = db.Item;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.itemName) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -14,11 +14,11 @@ exports.create = (req, res) => {
 
   // Create a Tutorial
   const item = {
-    itemname: req.body.itemname,
+    itemName: req.body.itemName,
     description: req.body.description,
     picture: req.body.picture,
     price: req.body.price,
-    instock: req.body.instock,
+    inStock: req.body.inStock,
   };
 
   // Save Tutorial in the database
@@ -73,7 +73,7 @@ exports.update = (req, res) => {
     const id = req.params.id;
 
     Item.update(req.body, {
-      where: { id: id }
+      where: { itemId: id }
     })
       .then(num => {
         if (num == 1) {
@@ -99,7 +99,7 @@ exports.delete = (req, res) => {
     const id = req.params.id;
 
     Item.destroy({
-      where: { id: id }
+      where: { itemId: id }
     })
       .then(num => {
         if (num == 1) {
