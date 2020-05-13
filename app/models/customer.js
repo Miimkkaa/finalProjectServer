@@ -38,10 +38,9 @@ module.exports = function(sequelize, DataTypes) {
       field: 'BirthDate'
     },
     userType: {
-      type: DataTypes.STRING(4),
+      type: DataTypes.INTEGER(11),
       allowNull: true,
-      field: 'UserType',
-     // defaulValue: '1'
+      field: 'UserType'
     },
     billingId: {
       type: DataTypes.INTEGER(11),

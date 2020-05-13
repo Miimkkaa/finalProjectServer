@@ -22,7 +22,7 @@ module.exports = (app) => {
     router.delete("/:id", customer.delete);
   
     // Login check
-    router.get("/login/:username/:password", customer.login);
+    router.get("/login/:username/:pass", customer.login);
   
     app.use("/api/customer", router);
   };
