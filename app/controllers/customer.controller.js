@@ -35,7 +35,8 @@ exports.create = (req, res) => {
     pass: req.body.pass,
     email: req.body.email,
     birthDate: req.body.birthDate,
-    userType: '1'
+    userType: '1',
+    userType: req.body.userType
   };
 
   // Save customer in the database
@@ -136,7 +137,7 @@ exports.delete = (req, res) => {
 // Login validation
 exports.login = (req, res) => {
   const username = req.params.username;
-  const password = req.params.password;
+  const password = req.params.pass;
 
   if (!(username && password)) {
     res.status(400).send({
