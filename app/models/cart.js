@@ -18,14 +18,14 @@ module.exports = function(sequelize, DataTypes) {
       },
       field: 'CustomerId'
     },
-    cartItem: {
+    cartItemId: {
       type: DataTypes.INTEGER(11),
       allowNull: true,
       references: {
-        model: 'cartitem',
+        model: 'cartitemid',
         key: 'CartItemId'
       },
-      field: 'CartItem'
+      field: 'CartItemId'
     },
     totalPrice: {
       type: DataTypes.STRING(20),
