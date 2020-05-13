@@ -12,6 +12,8 @@ db.sequelize = sequelize;
 
 db.Customer = require("../models/customer")(sequelize, Sequelize);
 db.Item = require("../models/item")(sequelize, Sequelize);
+db.CartItem = require("../models/cartitem")(sequelize, Sequelize);
+
 
 module.exports = db;
 
