@@ -56,7 +56,6 @@ exports.create = (req, res) => {
     // Create a new customer
     const cart = {
       customerId: req.body.customerId,
-      cartItemId: req.body.cartItemId,
       totalPrice: req.body.totalPrice
     };
   

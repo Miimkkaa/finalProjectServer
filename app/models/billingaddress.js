@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
       field: 'BillingId'
     },
     fullName: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(50),
       allowNull: true,
       field: 'FullName'
     },
@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ZipCode'
     },
     street: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(50),
       allowNull: true,
       field: 'Street'
     },

@@ -9,6 +9,15 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       field: 'CartItemId'
     },
+    cartId:{
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      references: {
+        model: 'cart',
+        key: 'CartId'
+      },
+      field: 'CartId'
+    },
     itemId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,

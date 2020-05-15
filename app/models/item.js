@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
       field: 'Description'
     },
     picture: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(200),
       allowNull: true,
       field: 'Picture'
     },
@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
       field: 'Price'
     },
     inStock: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.INTEGER(1),
       allowNull: true,
       field: 'InStock'
     }

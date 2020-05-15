@@ -14,8 +14,9 @@ exports.create = (req, res) => {
 
   // Create a Tutorial
   const cartitem = {
+    cartId: req.body.cartId,
     itemId: req.body.itemId,
-     quantity: req.body. quantity,
+    quantity: req.body. quantity,
     qPrice: req.body.qPrice,
   };
 
