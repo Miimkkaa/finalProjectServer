@@ -9,6 +9,16 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       field: 'CartId'
     },
+    totalPrice: {
+      type: DataTypes.STRING(20),
+      allowNull: true,
+      field: 'TotalPrice'
+    },
+    paid: {
+      type: DataTypes.INTEGER(1),
+      allowNull: false,
+      field: 'Paid'
+    },
     customerId: {
       type: DataTypes.INTEGER(11),
       allowNull: true,
@@ -17,11 +27,6 @@ module.exports = function(sequelize, DataTypes) {
         key: 'CustomerId'
       },
       field: 'CustomerId'
-    },
-    totalPrice: {
-      type: DataTypes.STRING(20),
-      allowNull: true,
-      field: 'TotalPrice'
     }
   }, {
     tableName: 'cart',

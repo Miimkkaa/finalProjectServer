@@ -20,6 +20,9 @@ module.exports = (app) => {
   
     // // Delete a cart by id
     router.delete("/:id", cart.delete);
+    
+    // // Get id of cart or create a new cart
+    router.post("/:id", cart.getId);
   
     app.use("/api/cart", router);
   };

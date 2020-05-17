@@ -53,13 +53,15 @@ exports.create = (req, res) => {
       return;
     }
   
-    // Create a new customer
+    // Create a new cart
     const cart = {
       customerId: req.body.customerId,
-      totalPrice: req.body.totalPrice
+      totalPrice: req.body.totalPrice,
+      paid: "0",
+      paid: req.body.paid,
     };
   
-    // Save customer in the database
+    // Save cart in the database
     Cart.create(cart)
       .then(data => {
         res.send(data);
@@ -87,7 +89,7 @@ exports.findOne = (req, res) => {
       });
   };
 
-// Delete all customers
+// Delete all carts
 exports.deleteAll = (req, res) => {
     Cart.destroy({
         where: {},
@@ -104,7 +106,7 @@ exports.deleteAll = (req, res) => {
         });
   };
 
-// Delete customer by id
+// Delete cart by id
 exports.delete = (req, res) => {
     const id = req.params.id;
   
@@ -128,3 +130,60 @@ exports.delete = (req, res) => {
         });
       });
   };
+
+// Get customers curent cart
+exports.getId = (req, res) => {
+
+  const id = req.params.id;
+
+  // Unknown customer
+  if (req.params.id == 0) {
+
+  // Create a new cart
+  const cart = {
+    paid: '0',
+  };
+
+  // Save cart in the database
+  Cart.create(cart)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while saving."
+      });
+    });
+    return;
+  } else {   
+      Cart.findOne({where: { customerId: id, paid: "0" }})
+      .then(data => { 
+        if(data === undefined || data === null){
+          const cart = {
+            customerId: id,
+            paid: '0',
+          };
+        
+          // Save cart in the database
+          Cart.create(cart)
+            .then(data => {
+              res.send(data);
+            })
+            .catch(err => {
+              res.status(500).send({
+                message:
+                  err.message || "Some error occurred while saving."
+              });
+            });
+        } else{
+          res.send(data);
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving cart with id=" + id
+        });
+      });
+    }
+};

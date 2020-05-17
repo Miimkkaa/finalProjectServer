@@ -46,11 +46,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(10),
       allowNull: true,
       field: 'ExpiryDate'
-    },
-    paid: {
-      type: DataTypes.INTEGER(1),
-      allowNull: true,
-      field: 'Paid'
     }
   }, {
     tableName: 'payment',
