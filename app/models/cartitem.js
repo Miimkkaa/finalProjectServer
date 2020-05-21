@@ -1,7 +1,8 @@
-/* jshint indent: 2 */
+// const db = require("../models");
+// const Item = db.Item;
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('cartitem', {
+module.exports = (sequelize, DataTypes) => {
+  const CartItem = sequelize.define('cartitem', {
     cartItemId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -26,19 +27,19 @@ module.exports = function(sequelize, DataTypes) {
         key: 'ItemId'
       },
       field: 'ItemId'
-    },
-    quantity: {
-      type: DataTypes.STRING(10),
-      allowNull: true,
-      field: 'Quantity'
-    },
-    qPrice: {
-      type: DataTypes.STRING(10),
-      allowNull: true,
-      field: 'QPrice'
     }
   }, {
     tableName: 'cartitem',
     timestamps: false
+
   });
+
+  CartItem.associate = models => { 
+    CartItem.hasMany(models.Item,{
+      as: 'item',
+      foreignKey: 'itemId',
+    })
+  }
+
+  return CartItem;
 };

@@ -1,26 +1,25 @@
 const db = require("../models");
 const CartItem = db.CartItem;
+const Item = db.Item;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Tutorial
+// Create and Save a new cartitem
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.quantity) {
+  if (!req.body.cartId) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
     return;
   }
 
-  // Create a Tutorial
+  // Create a cartitem
   const cartitem = {
     cartId: req.body.cartId,
     itemId: req.body.itemId,
-    quantity: req.body. quantity,
-    qPrice: req.body.qPrice,
   };
 
-  // Save Tutorial in the database
+  // Save cartitem in the database
   CartItem.create(cartitem)
     .then(data => {
       res.send(data);
@@ -28,12 +27,12 @@ exports.create = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Tutorial."
+          err.message || "Some error occurred while creating the cartitem."
       });
     });
 };
 
-// Retrieve all Tutorials from the database.
+// Retrieve all cartitems from the database.
 exports.findAll = (req, res) => {
 // const itemname = req.query.itemname;
   // var condition =  itemname ? { itemname: { [Op.like]: `%${itemname}%` } } : null;
@@ -45,13 +44,13 @@ exports.findAll = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving tutorials."
+            err.message || "Some error occurred while retrieving cartitems."
         });
       });
   
 };
 
-// Find a single Tutorial with an id
+// Find a single cartitem with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
@@ -61,13 +60,13 @@ exports.findOne = (req, res) => {
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error retrieving Tutorial with id=" + id
+          message: "Error retrieving cartitem with id=" + id
         });
       });
   
 };
 
-// Update a Tutorial by the id in the request
+// Update a cartitem by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
 
@@ -77,23 +76,23 @@ exports.update = (req, res) => {
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Tutorial was updated successfully."
+            message: "cartitem was updated successfully."
           });
         } else {
           res.send({
-            message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+            message: `Cannot update cartitem with id=${id}. Maybe cartitem was not found or req.body is empty!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating Tutorial with id=" + id
+          message: "Error updating cartitem with id=" + id
         });
       });
   
 };
 
-// Delete a Tutorial with the specified id in the request
+// Delete a cartitem with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
 
@@ -103,50 +102,76 @@ exports.delete = (req, res) => {
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Tutorial was deleted successfully!"
+            message: "cartitem was deleted successfully!"
           });
         } else {
           res.send({
-            message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+            message: `Cannot delete cartitem with id=${id}. Maybe cartitem was not found!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete Tutorial with id=" + id
+          message: "Could not delete cartitem with id=" + id
         });
       });
   
 };
 
-// Delete all Tutorials from the database.
+// Delete all cartitems from the database.
 exports.deleteAll = (req, res) => {
     CartItem.destroy({
         where: {},
         truncate: false
       })
         .then(nums => {
-          res.send({ message: `${nums} Tutorials were deleted successfully!` });
+          res.send({ message: `${nums} cartitems were deleted successfully!` });
         })
         .catch(err => {
           res.status(500).send({
             message:
-              err.message || "Some error occurred while removing all tutorials."
+              err.message || "Some error occurred while removing all cartitems."
           });
         });
 };
 
-// Find all published Tutorials
-exports.findAllPublished = (req, res) => {
-    CartItem.findAll({ where: { published: true } })
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials."
-      });
+exports.findItems = (req, res) => {
+  const id = req.params.id;
+  const query = 'select CartItemId, ItemName, Description, Price, Picture from item, cartitem where item.ItemId = cartitem.ItemId and cartitem.CartId = ' + id;
+
+  const Sequelize = require("sequelize");
+  const sequelize = new Sequelize('UfnQOHd1ON', 'UfnQOHd1ON', 'cS2PAPWiz4', {
+    host: "remotemysql.com",
+    dialect: "mysql",
     });
 
-};
+    sequelize.query(query,{type: Sequelize.QueryTypes.SELECT})
+          .then(data => {
+          res.send(data);
+        })
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while retrieving items."
+          });
+  });
+
+
+      // CartItem.findAll({
+      //   include: [{
+      //     model: Item,
+      //     as: 'Item',
+      //     where: {cartId: req.params.id}
+      //   }]
+      // })
+      //   .then(data => {
+      //     console.log(data);
+      //   })
+      //   .catch(err => {
+      //     res.status(500).send({
+      //       message:
+      //         err.message || "Some error occurred while retrieving cartitems."
+      //     });
+      //   });
+    
+  };

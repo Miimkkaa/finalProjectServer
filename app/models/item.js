@@ -1,7 +1,8 @@
-/* jshint indent: 2 */
+// const db = require("../models");
+// const CartItem = db.CartItem;
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('item', {
+module.exports = (sequelize, DataTypes) => {
+  const Item = sequelize.define('item', {
     itemId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -10,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ItemId'
     },
     itemName: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(20),  
       allowNull: true,
       field: 'ItemName'
     },
@@ -38,4 +39,13 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'item',
     timestamps: false
   });
+
+  Item.associate = models => {
+    Item.belongsTo(models.CartItem,{
+      as: 'cartitem',
+      foreignKey: 'item_id'
+    });
+  };
+
+  return Item;
 };
